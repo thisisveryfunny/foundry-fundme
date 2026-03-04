@@ -58,12 +58,11 @@ contract FundMeTest is Test {
         vm.prank(USER);
         fundMe.withdraw();
     }
-    
+
     function testWithdrawWithSingleFunder() public funded {
         // Arrange
         uint256 startingOwnerBalance = fundMe.getOwner().balance;
         uint256 startingFundMeBalance = address(fundMe).balance;
-
 
         // Act
         uint256 gasStart = gasleft();
@@ -84,11 +83,10 @@ contract FundMeTest is Test {
     }
 
     function testWithdrawFromMultipleFunders() public funded {
-
         // Arrange
         uint160 nbFunders = 10;
         uint160 startingIndex = 1;
-        for(uint160 i = startingIndex; i < nbFunders; i++) {
+        for (uint160 i = startingIndex; i < nbFunders; i++) {
             hoax(address(i), SEND_VALUE);
             fundMe.fund{value: SEND_VALUE}();
         }
@@ -107,11 +105,10 @@ contract FundMeTest is Test {
     }
 
     function testWithdrawFromMultipleFundersCheaper() public funded {
-
         // Arrange
         uint160 nbFunders = 10;
         uint160 startingIndex = 1;
-        for(uint160 i = startingIndex; i < nbFunders; i++) {
+        for (uint160 i = startingIndex; i < nbFunders; i++) {
             hoax(address(i), SEND_VALUE);
             fundMe.fund{value: SEND_VALUE}();
         }

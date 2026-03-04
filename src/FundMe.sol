@@ -15,7 +15,7 @@ contract FundMe {
     address[] public funders;
 
     // Could we make this constant?  /* hint: no! We should make it immutable! */
-    address private immutable  iOwner;
+    address private immutable iOwner;
     uint256 public constant MINIMUM_USD = 5e18;
     AggregatorV3Interface private s_priceFeed;
 
@@ -41,9 +41,9 @@ contract FundMe {
         _;
     }
 
-    function cheaperWithdraw() public onlyOwner{
+    function cheaperWithdraw() public onlyOwner {
         uint256 fundersLength = funders.length; // save gas here because it only make one call from the storage variable funders
-        for (uint256 i = 0; i < fundersLength; i++){
+        for (uint256 i = 0; i < fundersLength; i++) {
             address funder = funders[i];
             addressToAmountFunded[funder] = 0;
         }
@@ -89,7 +89,7 @@ contract FundMe {
         fund();
     }
 
-    function getAddressToAmountFunded(address fundAddress) external view returns (uint256){
+    function getAddressToAmountFunded(address fundAddress) external view returns (uint256) {
         return addressToAmountFunded[fundAddress];
     }
 

@@ -14,11 +14,10 @@ contract FundMeTestIntegration is Test {
     uint256 constant BALANCE = 10 ether;
     uint256 constant GAS_PRICE = 1;
 
-
     function setUp() external {
         DeployFundMe deploy = new DeployFundMe();
         fundMe = deploy.run();
-        vm.deal(USER,BALANCE);
+        vm.deal(USER, BALANCE);
     }
 
     function testUserCanFundInteractions() public {

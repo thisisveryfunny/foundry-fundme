@@ -17,36 +17,32 @@ contract HelperConfig is Script {
         address priceFeed;
     }
 
-    constructor(){
-        if (block.chainid == 11155111) { // sepolia chain id
+    constructor() {
+        if (block.chainid == 11155111) {
+            // sepolia chain id
             activeNetworkConfig = getSepoliaEthConfig();
         }
-        if (block.chainid == 1) { // mainnet chain id
+        if (block.chainid == 1) {
+            // mainnet chain id
             activeNetworkConfig = getMainnetEthConfig();
-        }
-        else {
+        } else {
             activeNetworkConfig = getAnvilEthConfig();
         }
-
     }
 
     function getSepoliaEthConfig() public pure returns (NetworkConfig memory) {
         // price feed adress
-        NetworkConfig memory sepoliaConfig = NetworkConfig({
-            priceFeed: 0x694AA1769357215DE4FAC081bf1f309aDC325306
-        });
+        NetworkConfig memory sepoliaConfig = NetworkConfig({priceFeed: 0x694AA1769357215DE4FAC081bf1f309aDC325306});
         return sepoliaConfig;
     }
 
     function getMainnetEthConfig() public pure returns (NetworkConfig memory) {
         // price feed adress
-        NetworkConfig memory mainnetConfig = NetworkConfig({
-            priceFeed: 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419
-        });
+        NetworkConfig memory mainnetConfig = NetworkConfig({priceFeed: 0x5f4eC3Df9cbd43714FE2740f5E3616155c5b8419});
         return mainnetConfig;
     }
 
-    function getAnvilEthConfig() public  returns (NetworkConfig memory) {
+    function getAnvilEthConfig() public returns (NetworkConfig memory) {
         if (activeNetworkConfig.priceFeed != address(0)) {
             return activeNetworkConfig;
         }
@@ -54,16 +50,11 @@ contract HelperConfig is Script {
         // 1. deploy the mocks
         // 2. return the mock address
         vm.startBroadcast();
-        MockV3Aggregator mock = new MockV3Aggregator(
-            DECIMALS, 
-            INITIAL_PRICE
-        );
+        MockV3Aggregator mock = new MockV3Aggregator(DECIMALS, INITIAL_PRICE);
 
         vm.stopBroadcast();
 
-        NetworkConfig memory config = NetworkConfig({
-            priceFeed: address(mock)
-        });
+        NetworkConfig memory config = NetworkConfig({priceFeed: address(mock)});
         return config;
     }
 }
