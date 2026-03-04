@@ -8,6 +8,7 @@ import {PriceConverter} from "./PriceConverter.sol";
 error FundMe__NotOwner();
 
 contract FundMe {
+    // Storage variable
     using PriceConverter for uint256;
 
     mapping(address => uint256) public addressToAmountFunded;
